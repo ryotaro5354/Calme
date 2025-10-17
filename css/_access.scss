@@ -1,0 +1,85 @@
+@use'mixin' as m;
+
+
+.access {
+    // border:1px solid red;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transform: translateY(30px);
+    /* 下から少し上がる感じ */
+    transition: all 1.0s ease;
+
+    /* スクロールで表示 */
+    &.fadein {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .inner {
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        padding: 100px;
+        margin:30px 10px 100px 10px;
+
+        @include m.tab {
+            padding:50px 20px 0;
+        }
+        @include m.sp {
+            padding:50px 10px 0;
+        }
+
+    }
+
+    .access-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+
+        .access-item {
+            // border:1px solid blue;
+            padding-left: 40px;
+            margin-bottom: 60px;
+            position: relative;
+
+            @include m.tab {
+                padding-left:20px;
+            }
+
+            &::before {
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                width: 15px;
+                height: 100%;
+                background-color: #2F3A56;
+
+            }
+
+            .access-title {
+                font-size: 24px;
+                // font-size:clamp(16px, 4vw, 24px);
+                font-weight: bold;               
+                padding-bottom: 10px;
+            }
+
+            .access-text {
+                font-size:16px;
+                // font-size:clamp(8px, 3vw, 16px);
+                letter-spacing: 1px;
+                padding: 10px 0 0 ;
+
+                @include m.tab {
+                    // padding:10px 0 0 15px;
+                }
+                @include m.sp {
+                    font-size:14px;
+                    
+                }
+            }
+        }
+    }
+}

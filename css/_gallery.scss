@@ -1,0 +1,179 @@
+@use'mixin' as m;
+
+.gallery {
+    opacity: 0;
+    transform: translateY(30px);
+    /* 下から少し上がる感じ */
+    transition: all 1.0s ease;
+
+    /* スクロールで表示 */
+    &.fadein {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gallery-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 80px 10px;
+
+
+    .dropdown {
+        position: relative;
+
+        .dropdown-toggle {
+            color: white;
+            background-color: #2F3A56;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 300px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 300px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            display: none;
+            z-index: 10;
+
+            li a {
+                display: block;
+                padding: 10px 20px;
+                color: #2F3A56;
+
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+
+        }
+    }
+
+}
+
+.filter-list {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    width: 100%;
+
+
+    li {
+        flex: 0 0 auto;
+
+
+        a {
+            color: #2F3A56;
+            // font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.2s;
+            padding: 8px 20px;
+            // padding: 10px 20px;
+            margin-right: 5px;
+            position: relative;
+
+            &::after {
+                position: absolute;
+                content: "/";
+                top: 50%;
+                right: -10px;
+                transform: translateY(-50%);
+                pointer-events: none;
+
+            }
+
+            // &.active:after {
+            //     color: #2F3A56;
+            // }
+
+        }
+
+        :hover {
+            background-color: rgba(0, 0, 0, 0.05); // 背景を薄く          
+        }
+
+        &:last-child a::after {
+            content: ""; // 最後の要素には/を出ないように
+        }
+    }
+}
+
+.filter-list li a.active {
+    background-color: #2F3A56;
+    color: white;
+}
+
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding-inline: 10px;
+
+    @include m.tab {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include m.sp {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        text-align: left;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+
+        @include m.tab {
+            padding: 20px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* タグ用のコンテナ */
+        .card-tags {
+            margin-top: 10px;
+        }
+
+        /* 1つ1つのタグをラベル風に */
+        .card-tags .tag-label {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #2F3A56;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 5px; // 複数行になるときに間隔
+        }
+
+        p {
+            display: inline-block;
+            padding: 5px;
+            font-size: 16px;
+            color: white;
+            background-color: #2F3A56;
+            border-radius: 5px;
+            margin: 10px 5px 0;
+        }
+
+        // このｐたぐはけしていいかも？
+    }
+
+}

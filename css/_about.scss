@@ -1,0 +1,168 @@
+@use'mixin' as m;
+
+
+.about {
+    padding-bottom: 100px;
+    background-image: url(/img/about背景.jpg);
+    background-color: rgba(241, 244, 242, 0.9);
+    background-blend-mode: lighten;
+    background-size: cover;
+
+    img {
+        // max-width: 650px;
+        height: auto;
+    }
+}
+
+.about-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    
+}
+
+
+.about-item {
+    display: flex;
+    align-items: center;
+    min-height: 650px;
+    opacity: 0;
+    transform: translateY(30px);
+    /* 下から少し上がる感じ */
+    transition: all 1.0s ease;
+
+    @include m.tab {
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        min-height:auto;
+        margin-bottom:30px;
+
+        
+    }
+
+    &:nth-child(2) {
+        @include m.tab {
+            flex-direction: column;
+        }
+    }
+    &:nth-child(3) {
+        @include m.tab {
+            margin-bottom:0;
+        }
+    }
+
+    /* スクロールで表示 */
+    &.fadein {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+
+
+    .about-texts {
+        text-align: left;
+        width: 50%;
+        background-color: rgba(241, 244, 242, 0.8);
+        // padding: 4%;
+        padding: 32px 16px;
+        transform: translate(25%, 100%);
+        z-index: 3;
+
+        @include m.tab {
+            width: 70%;
+            transform: translate(20%, -10%);
+            // transform: translate(40%, -15%);
+            // padding:10px;
+        }
+        @include m.sp {
+            transform: translate(0, -2%);
+            width: 100%;
+        }
+
+
+        .about-title {
+            font-size: 24px;
+            // font-size:clamp(14px, 3vw, 24px);
+            font-weight: bold;
+            margin-bottom: 20px;
+            @include m.sp {
+                font-size: 20px;
+            }
+        }
+
+        .about-text {
+            font-size: 16px;
+            // font-size:clamp(8px, 3vw, 16px);
+            @include m.sp {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .about-texts:nth-child(2) {
+        width: 50%;
+        transform: translate(-25%, 100%);
+        // transform: translate(-15%, 50%);
+
+        @include m.tab {
+            width: 82%;
+            transform: translate(-10%, -10%);
+            // transform: translate(-40%, -15%);
+        }
+        @include m.sp {
+            width: 100%;
+            transform: translate(0, -2%);
+        }
+    }
+
+    .about-img {
+        position: relative;
+        width: 60%;
+        height: 420px;
+        -webkit-mask-image:
+            linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%),
+            linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%);
+        mask-image:
+            linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%),
+            linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%);
+        -webkit-mask-composite: intersect;
+        /* Safari用 */
+        mask-composite: intersect;
+        /* 標準 */
+
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        -webkit-mask-size: cover;
+
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: cover;
+
+        /*-webkitが付いているところは古いブラウザでもたいおうさせるため*/
+        @include m.tab {
+            width: 100%;
+            height: auto;
+            -webkit-mask-size: cover;
+            mask-size: cover;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
+    }
+
+
+    img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        position: relative;
+        z-index: 1;
+
+        @include m.tab {
+            height: auto;
+        }
+
+    }
+}
+

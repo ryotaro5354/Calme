@@ -1,0 +1,942 @@
+@use'mixin' as m;
+
+
+html {
+    font-size: 100%;
+}
+
+body {
+    font-family: 'EB Garamond', 'Noto Serif JP', serif;
+    background-color: #F1F4F2;
+}
+
+body.menu-open {
+    overflow: hidden;
+
+}
+
+
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #2F3A56;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+/*-----------------------------------------
+全体
+-----------------------------------------*/
+.container {
+    width: 100%;
+    text-align: center;
+    // margin-inline: auto;
+    // border: 2px solid red;
+
+}
+
+.wrapper {
+    max-width: 1100px;
+    margin-inline: auto;
+    // padding-inline: 20px;
+    // border: 1px solid olivedrab;
+    background-image:
+        linear-gradient(rgba(241, 244, 242, 0.88), rgba(241, 244, 242, 0.85)),
+        url(../img/背景流線_縦3倍.png);
+    background-repeat: repeat;
+    background-position: center;
+}
+
+.section-title {
+    padding-block: 130px;
+
+    @include m.tab {
+        padding-block: 65px;
+    }
+
+    img {
+        width: 350px;
+        text-align: center;
+    }
+}
+
+.page-title {
+    padding-block: 80px 50px;
+
+    @include m.tab {
+        padding-block: 40px 25px;
+    }
+
+    opacity: 0;
+    transform: translateY(30px);
+    /* 下から少し上がる感じ */
+    transition: all 1.0s ease;
+
+    /* スクロールで表示 */
+    &.fadein {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    img {
+        width: 300px;
+        margin-top: 100px;
+
+    }
+}
+
+/*--------------------------------------------
+header
+--------------------------------------------*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // border: 1px solid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    background-color: #F1F4F2;
+    box-shadow: 0px 0px 10px 1px rgb(85, 85, 85);
+    transition: all 0.2s;
+
+    &.hidden {
+        transform: translateY(-100%);
+    }
+
+
+    .logo img {
+        width: 160px;
+        padding: 10px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+    }
+}
+
+.header-nav {
+    @include m.tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 100vh;
+        visibility: hidden;
+        transition: all 0.5s ease;
+        background-color: rgba(0, 0, 0, 0.85);
+        opacity: 0;
+        padding-top: 50px;
+
+    }
+
+    &.no-transition {
+        transition: none !important;
+    }
+
+
+    .contacts {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        text-align: center;
+
+        @include m.tab {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        li {
+            a {
+                margin: 10px 20px;
+                width: 230px;
+                height: 45px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+            }
+        }
+    }
+}
+
+.open .header-nav {
+    visibility: visible;
+    opacity: 1;
+
+
+
+}
+
+/*-----------------------------------------------------------
+お問い合わせ
+----------------------------------------------------------*/
+
+.contact-btn {
+    background-color: #2F3A56;
+    color: #D4DEDC;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -75%;
+        /* 初期位置を左外に */
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(120deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.5) 50%,
+                rgba(255, 255, 255, 0) 100%);
+        transform: skewX(-25deg);
+        /* 光っぽい傾き */
+    }
+}
+
+.contact-btn:hover::before {
+    animation: shine 1s forwards;
+}
+
+@keyframes shine {
+    0% {
+        left: -75%;
+    }
+
+    100% {
+        left: 125%;
+        /* 右に流れる */
+    }
+}
+
+
+/*---------------------------------------------------------
+tel
+-----------------------------------------------------*/
+.tel-btn {
+    position: relative;
+
+
+    &:hover {
+        &::before {
+            height: 100%;
+        }
+
+        // 左上縦線
+        &::after {
+            width: 100%;
+        }
+
+        // 左上横線
+        span::before {
+            height: 100%;
+        }
+
+        // 右下縦線
+        span::after {
+            width: 100%;
+        }
+
+        // 右下横線
+    }
+
+    /* 左上のL字線 */
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        background-color: #2F3A56;
+        transition: all 0.3s ease;
+
+        @include m.tab {
+            background-color: white;
+        }
+    }
+
+    &::before {
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 30px;
+
+    }
+
+    &::after {
+        top: 0;
+        left: 0;
+        width: 30px; // 横線
+        height: 1px;
+
+    }
+
+    span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        @include m.tab {
+            color: white;
+        }
+
+        /* 右下のL字線 */
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            background-color: #2F3A56;
+            transition: all 0.3s ease;
+
+            @include m.tab {
+                background-color: white;
+            }
+        }
+
+        &::before {
+            bottom: 0;
+            right: 0;
+            width: 1px; // 縦線
+            height: 30px;
+        }
+
+        &::after {
+            bottom: 0;
+            right: 0;
+            width: 30px; // 横線
+            height: 1px;
+        }
+    }
+}
+
+/*------------------------------------------------------------------------
+nav menu
+---------------------------------------------------------------------*/
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include m.tab {
+        flex-direction: column;
+
+
+    }
+
+
+    li {
+        margin: 10px;
+
+
+
+        a {
+            display: inline-block;
+            text-align: center;
+            padding: 5px 10px;
+            transition: all 0.2s ease;
+            position: relative;
+
+            @include m.tab {
+                color: white;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                // padding-right: 10px; // ← テキストとの間隔
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 6px 0 6px 10px; // ← 小さめ三角形
+                border-color: transparent transparent transparent #2F3A56;
+                opacity: 0;
+                transition: all 0.2s ease;
+
+                @include m.tab {
+                    border-color: transparent transparent transparent white;
+
+                }
+
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0; // 下に固定
+                left: 0;
+                width: 100%;
+                height: 1px; // 線の太さ
+                background-color: #2F3A56;
+                transform: scaleX(0); // 初期状態は線がない
+                transform-origin: left;
+                transition: all 0.2s ease;
+
+                @include m.tab {
+                    background-color: white;
+                }
+            }
+
+            &:hover,
+            &.current {
+                font-weight: bold;
+                padding-left: 16px;
+
+            }
+
+            &:hover::before {
+                opacity: 1;
+            }
+
+            &:hover::after {
+                transform: scaleX(1); // ホバーで線が横に伸びる
+            }
+
+        }
+
+    }
+}
+
+
+
+/*----------------------------------
+snsリンク
+-------------------------------*/
+
+.sns {
+    display: none;
+
+    @include m.tab {
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        gap: 10px;
+
+    }
+
+    // @include m.sp {
+    //     flex-direction: column;
+    // }
+
+    .sns-link {
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        // flex:1;
+        // width:fit-content;
+
+        a {
+            width: 145px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            // gap: 30px;
+            color: white;
+            // border:1px solid white;
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.4);
+            gap: 10px;
+            transform: scale(1.0);
+            opacity: 1;
+            transition: all 0.5s;
+
+
+            .name {
+                font-size: 16px;
+            }
+
+            img {
+                width: 29px;
+            }
+        }
+
+        a:hover {
+            transform: scale(1.05);
+            opacity: 0.7;
+
+        }
+
+    }
+
+}
+
+.open .sns {
+    @include m.tab {
+        opacity: 1;
+        visibility: visible;
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------
+ハンバーガー
+-------------------------------*/
+.hamburger-menu {
+    display: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    /*矢印マークになるやつ*/
+    // border: 1px dotted blue;
+    background-color: #F1F4F2;
+    transition: all 0.3s;
+    position: relative;
+    margin-right: 10px;
+
+    @include m.tab {
+        display: block;
+    }
+}
+
+.hamburger-menu__bar {
+    /* spanはインライン要素やから */
+    display: inline-block;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    background-color: #2F3A56;
+    transition: all 0.2s;
+    position: absolute;
+
+    /*    transform-origin: center; */
+    &:nth-child(1) {
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &:nth-child(2) {
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &:nth-child(3) {
+        top: 70%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.open .hamburger-menu__bar:nth-child(1) {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-225deg);
+    z-index: 1500;
+    background-color: white;
+}
+
+.open .hamburger-menu__bar:nth-child(2) {
+    opacity: 0;
+}
+
+.open .hamburger-menu__bar:nth-child(3) {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) rotate(225deg);
+    z-index: 1500;
+    background-color: white;
+}
+
+
+
+/*-------------------------------
+footer
+----------------------------*/
+footer {
+    background-color: #2F3A56;
+    padding-block: 150px;
+    position: relative;
+
+    .wrapper {
+        background-image: none;
+
+        .address {
+            margin-bottom: 150px;
+            color: #D4DEDC;
+            font-size: clamp(8px, 4vw, 16px);
+
+            .address-main {
+                border-bottom: 1px solid rgb(255, 255, 255);
+            }
+
+            .map {
+                margin-top: 100px;
+                width: 100%;
+                margin-inline: auto;
+                padding-inline: 10px;
+                aspect-ratio: 16 / 9;
+                /* 高さは横幅に対して16:9に */
+            }
+
+            & iframe {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    p {
+        color: #D4DEDC;
+    }
+}
+
+
+.footer-logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    @include m.tab {
+        flex-direction: column;
+        margin-bottom: 60px;
+    }
+
+    img {
+        width: 140px;
+
+    }
+}
+
+.footer-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+
+
+    .footer-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 130px;
+
+        @include m.tab {
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .footer-item a {
+            padding: 10px 30px;
+            width: 100%;
+            border: 1px solid;
+            color: #D4DEDC;
+            position: relative;
+
+            span {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                transition: transform 0.3s ease;
+            }
+
+            &::before {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                top: 50%;
+                left: 15%;
+                transform: translateY(-50%);
+
+                // margin-right: 8px; // ← テキストとの間隔
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 6px 0 6px 10px; // ← 小さめ三角形
+                border-color: transparent transparent transparent #D4DEDC;
+                opacity: 0;
+                transition: all 0.3s ease;
+
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0; // 下に固定
+                left: 0;
+                width: 100%;
+                height: 1px; // 線の太さ
+                background-color: #D4DEDC;
+                transform: scaleX(0); // 初期状態は線がない
+                transform-origin: left;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover {
+                font-weight: bold;
+
+            }
+
+            &:hover::before {
+                opacity: 1;
+            }
+
+            &:hover::after {
+                transform: scaleX(1); // ホバーで線が横に伸びる
+            }
+
+
+            &:hover span {
+                transform: translateX(10px);
+            }
+        }
+
+    }
+}
+
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 100px;
+    color: #D4DEDC;
+
+    @include m.tab {
+        flex-direction: column; // 縦並びに
+        gap: 80px;
+    }
+
+
+    .privacy {
+        position: absolute;
+        right: 0;
+        border-bottom: 1px solid;
+
+        @include m.tab {
+            position: static; // 絶対配置解除
+            text-align: left;
+        }
+
+
+        a {
+            color: #D4DEDC;
+
+            &::before {
+                content: "";
+                display: inline-block;
+                margin-right: 8px; // ← テキストとの間隔
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 6px 0 6px 10px; // ← 小さめ三角形
+                border-color: transparent transparent transparent #D4DEDC;
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+
+            &:hover::before {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+
+/*---------------------------------------------
+page-top ボタン
+----------------------------------------------*/
+.page-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    z-index: 150;
+
+    @include m.tab {
+        bottom: 40px;
+        right: 5px;
+    }
+
+
+    .arrow {
+        font-size: 24px;
+        animation: bounce 1s infinite;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    }
+
+    .text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        margin-top: 8px;
+
+    }
+}
+
+.page-top.footer-visible {
+    color: white;
+    /* 文字色黒 */
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+
+    }
+
+    50% {
+        transform: translateY(-5px);
+
+    }
+}
+
+/*---------------------------------------------
+ニュースページネーション
+----------------------------------------------*/
+.news-pagination {
+    display: flex;
+    justify-content: center;
+    margin: 60px 30px;
+
+    ul {
+        display: flex;
+        gap: 8px;
+
+        a,
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            color: #2F3A56;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        .pagination .dots {
+            border: none;
+            width: auto;
+            padding: 0 10px;
+            color: #2F3A56;
+        }
+        span.current {
+            background-color: #2F3A56;
+            color: white;
+            pointer-events: none;
+            border: 1px solid #2F3A56;
+        }
+        // ページが開いている間のページネーションの色が変わるコード
+    }
+}
+
+/*---------------------------------------------
+ページネーションsingle
+----------------------------------------------*/
+
+.pagination-single {
+    ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+
+        a {
+            padding: 5px 10px;
+            margin-top: 20px;
+            border: 1px solid;
+            color: #2F3A56;
+            border-radius: 5px;
+        }
+
+    }
+}
+
+/*---------------------------------------------
+ギャラリーページネーション
+----------------------------------------------*/
+
+
+.gallery-pagination {
+    // display: flex;
+    margin: 60px 30px;
+
+    ul {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+
+        a,
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #999;
+            border-radius: 5px;
+            color: #2F3A56;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        .dots {
+            border: none;
+            width: auto;
+            padding: 0 10px;
+            color: #2F3A56;
+        }
+        a.active {
+            color: white;
+            border: 2px solid #2F3A56;
+            background-color: #2F3A56;
+        }
+    }
+}

@@ -1,0 +1,82 @@
+@use 'mixin' as m;
+
+.news-inner {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-block: 100px;
+}
+
+.news-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    // border: 1px solid red;
+
+    .news-entry {
+        width: 50%;
+        // border: 1px solid blue;
+        border-bottom: 2px dotted black;
+
+        @include m.tab {
+            width:90%;
+        }
+
+        a {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: opacity 0.3s;
+            padding-block: 10px;
+            position: relative;
+
+            /* ホバー時だけ右矢印を表示 */
+            &::before {
+                position: absolute;
+                content: "›";
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                font-size: 20px;
+                color: black;
+                opacity: 0;
+                transition: opacity 0.3s;
+
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &:hover::before {
+                opacity: 1;
+            }
+
+            .news-date {
+                margin-bottom: 10px;
+            }
+
+            .news-title {
+                text-align: left;
+                font-weight: bold;
+                padding-left: 20px;
+                
+                @include m.tab {
+                    padding-left:10px;
+                }
+            }
+        }
+    }
+}
+.news-pagination li a.current {
+    background-color: #2F3A56;
+    color: white;
+    pointer-events: none;
+    cursor: default; /* カーソルをデフォルトに変更 */
+}
+a.enpty-link {
+    display: none;
+
+}
