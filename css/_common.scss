@@ -593,6 +593,10 @@ footer {
             color: #D4DEDC;
             font-size: clamp(8px, 4vw, 16px);
 
+            .postal {
+                font-size:14px;
+            }
+
             .address-main {
                 border-bottom: 1px solid rgb(255, 255, 255);
             }

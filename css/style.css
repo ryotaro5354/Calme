@@ -480,6 +480,9 @@ footer .wrapper .address {
   color: #D4DEDC;
   font-size: clamp(8px, 4vw, 16px);
 }
+footer .wrapper .address .postal {
+  font-size: 14px;
+}
 footer .wrapper .address .address-main {
   border-bottom: 1px solid rgb(255, 255, 255);
 }
