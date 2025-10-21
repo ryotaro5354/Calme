@@ -483,9 +483,6 @@ footer .wrapper .address {
 footer .wrapper .address .postal {
   font-size: 14px;
 }
-footer .wrapper .address .postal-number {
-  font-family: Arial, "EB Garamond", "Noto Serif JP", serif;
-}
 footer .wrapper .address .address-main {
   border-bottom: 1px solid rgb(255, 255, 255);
 }
